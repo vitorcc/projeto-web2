@@ -17,7 +17,6 @@ public class HomeController {
     public ModelAndView listar(){
         ModelAndView mv = new ModelAndView("Home");
         mv.addObject("produtos", produtos.findAll());
-
         return mv;
     }
 }

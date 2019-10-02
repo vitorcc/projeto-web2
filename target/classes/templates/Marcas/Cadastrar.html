@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Programação Web II - VA1</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all"
+          rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap-switch.min.css" rel="stylesheet"/>
+    <link href="/css/components.min.css" rel="stylesheet"/>
+    <link href="/css/custom.min.css" rel="stylesheet"/>
+    <link href="/css/default.min.css" rel="stylesheet"/>
+    <link href="/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/css/layout.min.css" rel="stylesheet"/>
+    <link href="/css/plugins.min.css" rel="stylesheet"/>
+    <link href="/css/simple-line-icons.min.css" rel="stylesheet"/>
+    <link href="/css/daterangepicker.min.css" rel="stylesheet"/>
+    <link href="/css/morris.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+</head>
+
+<body class="page-container-bg-solid">
+<div class="page-wrapper">
+    <div class="page-wrapper-row">
+        <div class="page-wrapper-top">
+            <div class="page-header">
+                <div class="page-header-top">
+                    <div class="container">
+                        <div class="page-logo">
+                            <a th:href="@{/home}">
+                                <img src="/imgs/fat.png" alt="logo" class="logo-default">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-header-menu">
+                    <div class="container">
+                        <div class="hor-menu  ">
+                            <ul class="nav navbar-nav">
+                                <li aria-haspopup="true" class="menu-dropdown">
+                                    <a class="nav-item nav-link"
+                                       th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}"
+                                       th:href="@{/home}"> Início
+                                    </a>
+                                </li>
+                                <li aria-haspopup="true" class="menu-dropdown">
+                                    <a class="nav-item nav-link"
+                                       th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}"
+                                       th:href="@{/marcas/listar}"> Marcas
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper-row full-height">
+        <div class="page-wrapper-middle">
+            <div class="page-container">
+                <div class="page-content-wrapper">
+                    <div class="page-head">
+                        <div class="container">
+                            <div class="page-title">
+                                <h1>ESPOR.TE
+                                    <small th:text="${id} ? 'Editar Marca' : 'Adicionar Marca'"> </small>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-content">
+                        <div class="container">
+                            <div class="page-content-inner">
+                                <div class="mt-content-body">
+
+                                    <div class="alert alert-success" th:if="${mensagem}">
+                                        <span th:text="${mensagem}"></span>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_4">
+                                        <div class="portlet box blue">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    Marcas
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                    <form class="form-group" method="post" th:action="@{/marcas/adicionar}"
+                                                          th:object="${marca}">
+
+                                                        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+                                                            <div th:each="error : ${#fields.errors()}">
+                                                                <span th:text="${error}"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-body">
+                                                            <input type="hidden" th:field="*{id}">
+                                                            <div class="form-group">
+                                                                <div class="col-md-9">
+                                                                    <input type="text" placeholder="Nike" class="form-control" autofocus th:field="*{nome}"/>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="text-right">
+                                                                <button type="submit" class="btn btn-success" th:text="${id} == null ? 'Salvar' : 'Editar'"></button>
+                                                                <a th:href="@{/marcas/listar}" class="btn btn-danger">Voltar</a>
+                                                            </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--RODAPÉ-->
+    <div class="page-wrapper-row">
+        <div class="page-wrapper-bottom">
+            <div class="page-prefooter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12 footer-block">
+                            <h2>Programação Web II</h2>
+                            <p> Trabalho para obtenção de nota referente a primeira avaliação do semestre. Professor: Felipe Queiroz </p>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 footer-block">
+                            <h2>Aluno</h2>
+                            <address class="margin-bottom-40"> Emanuel Vitor
+                                <br> Email:
+                                <a href="#">vitorcc13@gmail.com</a>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-footer">
+                <div class="container"> 2019 &copy; Emanuel Vitor &nbsp;|&nbsp;
+                    <a target="_blank" href="http://www.fat-al.edu.br">Faculdade de Tecnologia de Alagoas</a>
+                </div>
+                <div class="scroll-to-top">
+                    <i class="icon-arrow-up"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FINAL RODAPÉ-->
+
+<script type="text/javascript" src="/js/daterangepicker.min.js"></script>
+<script type="text/javascript" src="/js/app.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jquery.blockui.min.js"></script>
+<script type="text/javascript" src="/js/dashboard.min.js"></script>
+<script type="text/javascript" src="/js/quick-sidebar.min.js"></script>
+<script type="text/javascript" src="/js/demo.min.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="/js/js.cookie.min.js"></script>
+<script type="text/javascript" src="/js/layout.min.js"></script>
+<script type="text/javascript" src="/js/quick-nav.min.js"></script>
+<script type="text/javascript" src="/js/morris.min.js"></script>
+<script type="text/javascript" src="/js/raphael-min.js"></script>
+
+</body>
+
+</html>
