@@ -1,4 +1,4 @@
-package web2.va1.projetoprodutos.controller;
+package web2.va1.projetoprodutos.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

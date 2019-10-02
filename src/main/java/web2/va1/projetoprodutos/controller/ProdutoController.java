@@ -55,16 +55,17 @@ public class ProdutoController {
     }
 
     @PostMapping("/adicionar")
-    public ModelAndView adicionar(@Valid Produto produto, @RequestParam("file") MultipartFile file,
+    public ModelAndView adicionar(@Valid Produto produto,
                                   BindingResult result,
-                                  RedirectAttributes attributes){
-        if (file.isEmpty()) {
-            attributes.addFlashAttribute("message", "Please select a file to upload");
-            ModelAndView mv4 = new ModelAndView("Produtos/Cadastrar");
-            return mv4;
+                                  RedirectAttributes attributes, @RequestParam("file") MultipartFile file){
+
+        if(result.hasErrors() || file.isEmpty()){
+            ModelAndView mv = new ModelAndView("Produtos/Cadastrar");
+            mv.addObject("marcas", marcas.findAll());
+            mv.addObject("categorias", categorias.findAll());
+            return mv;
         }
         try {
-            // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             String caminho = "/images/" + file.getOriginalFilename();
@@ -72,18 +73,13 @@ public class ProdutoController {
             System.out.println(path.toString());
             Files.write(path, bytes);
 
-            attributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+//            attributes.addFlashAttribute("message",
+//                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(result.hasErrors()){
-            ModelAndView mv2 = new ModelAndView("Produtos/Cadastrar");
-            mv2.addObject("marcas", marcas.findAll());
-            mv2.addObject("categorias", categorias.findAll());
-            return mv2;
-        }
+
         ModelAndView mv = new ModelAndView("redirect:/produtos/listar");
         if(produto.getId() != null){
             attributes.addFlashAttribute("mensagem", "Produto editado com sucesso.");

@@ -15,6 +15,7 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @NotNull(message = "Selecione uma foto do produto")
     private String path;
 
     @Valid
@@ -26,19 +27,19 @@ public class Produto implements Serializable {
     @Valid
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false, referencedColumnName = "id")
-    //@NotNull(message = "Informe a categoria")
+    @NotNull(message = "Informe a categoria")
     private Categoria categoria;
 
-    //@NotEmpty(message = "Informe o nome do produto")
+    @NotEmpty(message = "Informe o nome do produto")
     private String nome;
 
-    //@NotEmpty(message = "Informe o modelo do produto")
+    @NotEmpty(message = "Informe o modelo do produto")
     private String modelo;
 
-    //@NotNull(message = "Informe o valor do produto")
+    @NotNull(message = "Informe o valor do produto")
     private Float valor_unitario;
 
-    //@NotNull(message = "Informe a quantidade")
+    @NotNull(message = "Informe a quantidade")
     private Integer quantidade;
 
     public Long getId() {
